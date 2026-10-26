@@ -11,14 +11,23 @@ SOURCE = Path(__file__).resolve().parents[1] / "skills" / NAME
 
 
 def install(destination):
-    destination = Path(destination).expanduser().absolute()
+    destination = Path(destination).expanduser().resolve()
     target = destination / NAME
+    source = SOURCE.resolve()
+    if target == source or source in target.parents:
+        raise ValueError("Choose a destination outside the source skill directory.")
     if target.exists() or target.is_symlink():
         raise FileExistsError(f"Already exists: {target}. No files were changed.")
-    if not (SOURCE / "SKILL.md").is_file() or not (SOURCE / "LICENSE").is_file():
+    if not (source / "SKILL.md").is_file() or not (source / "LICENSE").is_file():
         raise FileNotFoundError("The source skill or its license is missing.")
     destination.mkdir(parents=True, exist_ok=True)
-    shutil.copytree(SOURCE, target, ignore=shutil.ignore_patterns("__pycache__", "*.pyc", ".DS_Store"))
+    target.mkdir()
+    try:
+        shutil.copytree(source, target, dirs_exist_ok=True,
+                        ignore=shutil.ignore_patterns("__pycache__", "*.pyc", ".DS_Store"))
+    except BaseException:
+        shutil.rmtree(target, ignore_errors=True)
+        raise
     return target
 
 
@@ -29,7 +38,7 @@ def main(argv=None):
     args = parser.parse_args(argv)
     try:
         target = install(args.dest)
-    except OSError as exc:
+    except (OSError, ValueError) as exc:
         print(str(exc), file=sys.stderr)
         return 2
     print(f"Installed {NAME} at {target}")

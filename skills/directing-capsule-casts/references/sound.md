@@ -21,7 +21,7 @@ The standard characters have no mouth. Spoken content can be an off-screen narra
 
 ## Fit speech to time
 
-Read the actual line aloud or use a relevant timing estimate before accepting it. Include pauses and actions that need quiet. If the line does not fit, shorten it or redistribute it while retaining the total duration; do not quietly speed up an established speaker. Word-count heuristics differ by language and cannot certify timing.
+Read the actual line aloud or use a relevant timing estimate before accepting it. Include pauses and actions that need quiet. If the line does not fit, redistribute it or suggest a timing change; shorten wording only when the user permits editing. Keep supplied verbatim lines intact, and identify a conflict between fixed wording, duration and speaking pace instead of claiming they fit. Do not quietly speed up an established speaker. Word-count heuristics differ by language and cannot certify timing.
 
 ## Keep the score separate
 

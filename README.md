@@ -28,6 +28,8 @@ python3 tools/install.py
 
 This copies the complete skill, including its license, to `~/.agents/skills/directing-capsule-casts`. It refuses to overwrite an existing installation. For a client configured to read a different skill directory, use `--dest /path/to/skills`. See [Codex's skill locations](https://learn.chatgpt.com/docs/build-skills#where-codex-loads-local-skills); reload the client if the new skill does not appear.
 
+Choose a destination outside the source skill directory. A copy error or keyboard interrupt removes the incomplete installation so it can be retried; an existing installation is preserved.
+
 Invoke the skill in a supporting agent, for example:
 
 ```text
@@ -41,6 +43,8 @@ For an instruction-only host, point it at [SKILL.md](skills/directing-capsule-ca
 ## A package you can check
 
 The optional JSON format stores shared appearance and voice definitions once, plus shot timings and an object ledger. The renderer expands the definitions into every applicable prompt.
+
+Use a custom positive frame ratio, including `4:5`, `21:9` and `2.39:1`. Each shot can select `visible_props` while keeping off-frame objects in the continuity ledger. Exporting does not apply additional rounding to shot or beat timings.
 
 ```sh
 python3 skills/directing-capsule-casts/scripts/package.py check examples/lantern-home.json

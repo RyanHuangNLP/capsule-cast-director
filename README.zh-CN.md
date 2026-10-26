@@ -28,6 +28,8 @@ python3 tools/install.py
 
 默认复制到 `~/.agents/skills/directing-capsule-casts`，包含完整 skill 和许可文本。目标已存在时会停止，避免覆盖。其他客户端目录可用 `--dest /path/to/skills` 指定。[Codex 官方文档](https://learn.chatgpt.com/docs/build-skills#where-codex-loads-local-skills)说明了加载位置；如果客户端没有显示新技能，可重新加载或重启。
 
+目标目录需位于技能源目录之外。复制错误或键盘中断会清理本次未完成的安装，便于重试；已有安装会保留。
+
 调用示例：
 
 ```text
@@ -41,6 +43,8 @@ python3 tools/install.py
 ## 可检查的镜头包
 
 可选 JSON 格式把共用人物、画法、声音描述存一份，再记录每段的时间和道具状态。渲染工具会将完整描述展开到各段，减少遗漏和缩写。
+
+画幅支持自定义正数比例，包括 `4:5`、`21:9` 和 `2.39:1`。每段可用 `visible_props` 指定画面内道具，画外物品仍保留在连续性记录中。导出时不会对镜头与动作的时间值额外舍入。
 
 ```sh
 python3 skills/directing-capsule-casts/scripts/package.py check examples/lantern-home.json

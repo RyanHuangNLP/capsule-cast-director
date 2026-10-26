@@ -1,6 +1,7 @@
 import copy
 import importlib.util
 import json
+import re
 import subprocess
 import sys
 import tempfile
@@ -57,6 +58,54 @@ class PackageTests(unittest.TestCase):
                    beats=[{"from": 0, "to": 0.2, "action": "Hold."}])
         self.story.update(duration=0.3, shots=[one, two])
         package.validate(self.story)
+
+    def test_custom_frame_ratios_are_preserved(self):
+        for ratio in ("4:5", "21:9", "2.39:1", " 4 : 5 "):
+            with self.subTest(ratio=ratio):
+                self.story["aspect"] = ratio
+                self.assertIn(f"Frame {ratio}.", package.render(self.story))
+
+    def test_frame_ratio_requires_two_positive_values(self):
+        for ratio in ("0:5", "1:0", "-4:5", "NaN:1", "4/5", "16:9 extra", "", None):
+            with self.subTest(ratio=ratio):
+                self.story["aspect"] = ratio
+                self.reject("aspect")
+
+    def test_rendered_times_round_trip_without_losing_precision(self):
+        shot = self.story["shots"][0]
+        shot.update(seconds=12.3456789, beats=[
+            {"from": 0, "to": 4.1234567, "action": "Wait."},
+            {"from": 4.1234567, "to": 12.3456789, "action": "Look up."},
+        ])
+        self.story.update(duration=shot["seconds"], shots=[shot])
+        output = package.render(self.story)
+        length = re.search(r"^Length (\S+) seconds\.", output, re.M).group(1)
+        beats = re.findall(r"^([0-9.e+-]+)–([0-9.e+-]+)s:", output, re.M)
+        self.assertEqual(float(length), shot["seconds"])
+        self.assertEqual([(float(start), float(end)) for start, end in beats],
+                         [(beat["from"], beat["to"]) for beat in shot["beats"]])
+
+    def test_hidden_prop_stays_in_ledger_without_visual_description(self):
+        self.story["shots"][1]["visible_props"] = []
+        cards = package.render(self.story).split("\n## ")[1:]
+        description = self.story["props"]["lantern"]
+        self.assertIn(description, cards[0])
+        self.assertNotIn(description, cards[1])
+        self.assertIn("outside the frame (continuity only; do not depict): lantern", cards[1])
+        self.assertIn("Opening ledger: lantern:", cards[1])
+        self.assertIn(self.story["shots"][1]["start"]["lantern"]["place"], cards[1])
+
+    def test_visible_props_reject_invalid_references(self):
+        for selected in ("lantern", [None], ["unknown"], ["lantern", "lantern"]):
+            with self.subTest(selected=selected):
+                self.story["shots"][0]["visible_props"] = selected
+                self.reject("visible_props")
+
+    def test_hidden_props_still_require_continuity(self):
+        shot = self.story["shots"][1]
+        shot["visible_props"] = []
+        shot["start"]["lantern"]["holder"] = "bo"
+        self.reject("offscreen explanation")
 
     def test_gaps_and_overlaps_fail(self):
         for value in (3.9, 4.1):

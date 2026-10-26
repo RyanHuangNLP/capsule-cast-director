@@ -7,6 +7,7 @@ import math
 import re
 import sys
 from pathlib import Path
+from decimal import Decimal
 
 LOOKS = (
     "mono-light", "mono-dark", "modern-studio", "modern-story",
@@ -64,6 +65,13 @@ def register(value, where):
         text(description, f"{where}.{key}")
 
 
+def selection(value, where, known, kind):
+    require(isinstance(value, list), where, "expected a list")
+    require(all(isinstance(key, str) for key in value), where, f"{kind} identifiers must be text")
+    require(len(value) == len(set(value)), where, f"{kind} identifier appears twice")
+    require(all(key in known for key in value), where, f"unknown {kind} identifier")
+
+
 def state(value, where, props, cast):
     fields(value, where, props)
     for prop, placement in value.items():
@@ -86,7 +94,9 @@ def validate(data):
     for key in ("title", "context", "drawing", "exclude", "look", "aspect"):
         text(data[key], key)
     require(data["look"] in LOOKS, "look", f"choose one of {', '.join(LOOKS)}")
-    require(data["aspect"] in ("16:9", "9:16", "1:1"), "aspect", "use 16:9, 9:16 or 1:1")
+    ratio = re.fullmatch(r"\s*([0-9]+(?:\.[0-9]+)?)\s*:\s*([0-9]+(?:\.[0-9]+)?)\s*", data["aspect"])
+    require(ratio is not None, "aspect", "use a width:height ratio, such as 4:5 or 2.39:1")
+    require(all(Decimal(part) > 0 for part in ratio.groups()), "aspect", "both ratio values must be positive")
     number(data["duration"], "duration")
     for key in ("cast", "props", "voices"):
         register(data[key], key)
@@ -114,17 +124,15 @@ def validate(data):
         fields(shot, where, (
             "id", "seconds", "setting", "cast", "start", "beats", "end",
             "transition", "offscreen", "lines", "sound",
-        ))
+        ), optional=("visible_props",))
         identifier(shot["id"], f"{where}.id")
         require(shot["id"] not in ids, where, "duplicate shot identifier")
         ids.add(shot["id"])
         number(shot["seconds"], f"{where}.seconds")
         text(shot["setting"], f"{where}.setting")
-        visible = shot["cast"]
-        require(isinstance(visible, list), f"{where}.cast", "expected a list")
-        require(all(isinstance(role, str) for role in visible), where, "cast identifiers must be text")
-        require(len(visible) == len(set(visible)), where, "cast identifier appears twice")
-        require(all(role in data["cast"] for role in visible), where, "unknown cast identifier")
+        selection(shot["cast"], f"{where}.cast", data["cast"], "cast")
+        if "visible_props" in shot:
+            selection(shot["visible_props"], f"{where}.visible_props", data["props"], "prop")
         state(shot["start"], f"{where}.start", data["props"], data["cast"])
         state(shot["end"], f"{where}.end", data["props"], data["cast"])
 
@@ -177,7 +185,7 @@ def validate(data):
     except OverflowError:
         raise PackageError("duration: summed shot lengths are too large") from None
     require(close(total, data["duration"]), "duration",
-            f"shot lengths sum to {total:g}, expected {data['duration']:g}")
+            f"shot lengths sum to {total}, expected {data['duration']}")
     require(audio["mode"] != "spoken" or has_speech, "audio.mode",
             "spoken mode needs at least one assigned line")
     return data
@@ -198,17 +206,22 @@ def render(data):
     cards = [f"# {data['title']}", "", data["context"], ""]
     for shot in data["shots"]:
         content = [
-            f"Length {shot['seconds']:g} seconds. Frame {data['aspect']}. Look: {data['look']}.",
+            f"Length {shot['seconds']} seconds. Frame {data['aspect']}. Look: {data['look']}.",
             f"Story context: {data['context']}",
             f"Drawing: {data['drawing']}", f"Setting: {shot['setting']}",
         ]
         content.extend(f"Person {role}: {data['cast'][role]}" for role in shot["cast"])
-        content.extend(f"Object {key}: {value}" for key, value in data["props"].items())
+        visible_props = shot.get("visible_props", list(data["props"]))
+        content.extend(f"Object {key}: {data['props'][key]}" for key in visible_props)
+        hidden_props = [key for key in data["props"] if key not in visible_props]
+        if hidden_props:
+            content.append("Tracked objects outside the frame (continuity only; do not depict): "
+                           + ", ".join(hidden_props) + ".")
         content.append(f"Opening ledger: {placements(shot['start'])}")
         content.append(f"Incoming transition: {shot['transition']}.")
         content.extend(f"Off-screen change for {key}: {value}" for key, value in shot["offscreen"].items())
         content.extend(
-            f"{beat['from']:g}–{beat['to']:g}s: {beat['action']}" for beat in shot["beats"]
+            f"{beat['from']}–{beat['to']}s: {beat['action']}" for beat in shot["beats"]
         )
         used_voices = dict.fromkeys(line["speaker"] for line in shot["lines"])
         content.extend(f"Voice {key}: {data['voices'][key]}" for key in used_voices)
@@ -260,7 +273,7 @@ def main(argv=None):
         if args.command == "render":
             print(render(data), end="")
         else:
-            print(f"OK: {len(data['shots'])} shots, {data['duration']:g}s, {data['look']}")
+            print(f"OK: {len(data['shots'])} shots, {data['duration']}s, {data['look']}")
     except (OSError, UnicodeError, ValueError) as exc:
         print(f"{args.package}: {exc}", file=sys.stderr)
         return 2

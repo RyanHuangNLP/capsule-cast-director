@@ -32,7 +32,7 @@ A final shot card contains:
 
 1. Shot identifier, length, framing ratio and location.
 2. The full project drawing description and full descriptions of the visible characters, including current clothes.
-3. The important objects and their opening support/placement.
+3. The visible objects and their opening support/placement; track off-frame items separately for continuity without directing the generator to depict them.
 4. Timed action with camera and naturally hidden/cropped parts.
 5. Exact speech, applicable speaker descriptions, and the music/effects decision from [sound direction](sound.md).
 6. Resulting object state, cut connection and relevant exclusions.

@@ -1,0 +1,211 @@
+{
+  "schema": 1,
+  "title": "A lantern goes home",
+  "context": "An original fictional craft story in an imagined pre-industrial riverside town. Clothes and architecture are broad interpretations, not a documented event or exact historical reconstruction.",
+  "look": "heritage",
+  "aspect": "9:16",
+  "duration": 35,
+  "drawing": "Flat color animation with soft closed silhouettes. People have oversized rounded heads, compact solid trunks, and broad rounded arm and leg shapes that carry visible mass. Small paddle-shaped hands and blunt feet finish the silhouette. Two upright dark pill marks are the only facial marks: no mouth, nose, brows, pupils or eye shine. Clothing covers the body normally, with no anatomy visible through fabric. Read emotion from posture, head angle and pauses. Use quiet edges and limited shading; avoid glossy toy surfaces and mechanical additions.",
+  "cast": {
+    "jun": "Jun is an adult lantern maker with a warm brown rounded face, two dark upright pill eyes and black hair in a low knot secured by a plain wooden pin. She has a compact, fully filled figure, a dark jade cross-collar robe, a rust-colored apron, cream lower-leg wraps and rounded brown shoes. Her visible forearms and paddle-shaped hands are warm brown filled forms with clear width. No nose, mouth or eyebrows are drawn. Preserve the low knot, robe, apron and warm brown face.",
+    "bo": "Bo is an older adult carrier with a light tan round face and two dark upright pill eyes. A short silver braid emerges below a soft slate cap. An ochre long tunic, black fabric belt and dark brown rounded boots cover a broad compact filled body. The visible tan forearms and hands have soft solid silhouettes. There is no drawn mouth, nose or eyebrow. Keep the braid, cap, tunic and body proportions consistent."
+  },
+  "props": {
+    "lantern": "One unlit pale-yellow paper lantern with a bamboo hoop, curved bamboo handle and one visible reinforcing rib; no writing or emblem."
+  },
+  "voices": {
+    "reader": "An off-screen adult woman speaking standard Mandarin in a gentle middle register. The sound is clear and lightly resonant, with smooth phrase endings, natural pauses and an unhurried conversational pace. Use a close recording without room echo. Preserve this speaker throughout; characters do not speak or move a mouth."
+  },
+  "audio": {
+    "mode": "spoken",
+    "music": "A sparse recurring pattern of soft wooden plucks with long quiet gaps, mixed below the narrator; an editorial score, not a claim of authentic period music"
+  },
+  "exclude": "Hairline arms or legs, empty ring heads, extra facial marks, cloned people or objects, anatomy showing through clothing, unrequested lettering, watermarks and brand marks.",
+  "shots": [
+    {
+      "id": "repair",
+      "seconds": 12,
+      "setting": "A fictional riverside lantern workshop: timber posts, a low workbench, a lattice window and an open doorway toward the river path. Muted jade, rust and honey colors surround flat cartoon people.",
+      "cast": [
+        "jun"
+      ],
+      "start": {
+        "lantern": {
+          "holder": "set",
+          "place": "upright at the center of the low workbench"
+        }
+      },
+      "beats": [
+        {
+          "from": 0,
+          "to": 4,
+          "action": "Vertical medium view at bench height. Jun reaches with the left hand and closes it around the bamboo handle."
+        },
+        {
+          "from": 4,
+          "to": 9,
+          "action": "The lantern lifts slightly clear of the bench. Jun steadies its loose bamboo rib with the right hand while the left hand supports the handle."
+        },
+        {
+          "from": 9,
+          "to": 12,
+          "action": "Jun withdraws the right hand, leaving the straightened lantern hanging from the left hand beside the apron."
+        }
+      ],
+      "end": {
+        "lantern": {
+          "holder": "jun",
+          "place": "left hand around the bamboo handle, lantern beside the apron"
+        }
+      },
+      "transition": "opening",
+      "offscreen": {},
+      "lines": [
+        {
+          "speaker": "reader",
+          "text": "竹骨扶正，纸罩就重新站稳了。"
+        }
+      ],
+      "sound": "A soft bamboo creak and the rustle of paper; no character vocalizations"
+    },
+    {
+      "id": "set-down",
+      "seconds": 9,
+      "setting": "A fictional riverside lantern workshop: timber posts, a low workbench, a lattice window and an open doorway toward the river path. Muted jade, rust and honey colors surround flat cartoon people.",
+      "cast": [
+        "jun"
+      ],
+      "start": {
+        "lantern": {
+          "holder": "jun",
+          "place": "left hand around the bamboo handle, lantern beside the apron"
+        }
+      },
+      "beats": [
+        {
+          "from": 0,
+          "to": 3,
+          "action": "Cut to the jade sleeve, rust apron and lantern. Jun lowers the lantern with the left hand while the right hand guides the base."
+        },
+        {
+          "from": 3,
+          "to": 6,
+          "action": "The base makes full contact with the center of the bench and bears the weight. Both hands then release and withdraw."
+        },
+        {
+          "from": 6,
+          "to": 9,
+          "action": "Hold on the upright unlit lantern with empty space around it. The cropped hands remain outside the frame rather than being redrawn beside the object."
+        }
+      ],
+      "end": {
+        "lantern": {
+          "holder": "set",
+          "place": "upright at the center of the low workbench"
+        }
+      },
+      "transition": "continuous",
+      "offscreen": {},
+      "lines": [
+        {
+          "speaker": "reader",
+          "text": "她把灯放下，等来取灯的人。"
+        }
+      ],
+      "sound": "Paper settles and bamboo taps the wooden bench"
+    },
+    {
+      "id": "collect",
+      "seconds": 8,
+      "setting": "A fictional riverside lantern workshop: timber posts, a low workbench, a lattice window and an open doorway toward the river path. Muted jade, rust and honey colors surround flat cartoon people.",
+      "cast": [
+        "jun",
+        "bo"
+      ],
+      "start": {
+        "lantern": {
+          "holder": "set",
+          "place": "upright at the center of the low workbench"
+        }
+      },
+      "beats": [
+        {
+          "from": 0,
+          "to": 3,
+          "action": "Return to a vertical two-person composition, Jun farther back left and Bo nearer right. Bo approaches the workbench while Jun keeps her hands clear."
+        },
+        {
+          "from": 3,
+          "to": 6,
+          "action": "Bo places both palms under opposite sides of the lantern base, establishes support and lifts the single lantern away from the bench."
+        },
+        {
+          "from": 6,
+          "to": 8,
+          "action": "Bo steadies the lantern at waist height. Jun gives a slight head inclination; no mouth or eyebrow is added."
+        }
+      ],
+      "end": {
+        "lantern": {
+          "holder": "bo",
+          "place": "both hands beneath the lantern base, held at waist height"
+        }
+      },
+      "transition": "continuous",
+      "offscreen": {},
+      "lines": [
+        {
+          "speaker": "reader",
+          "text": "他先托住灯底，再慢慢提起。"
+        }
+      ],
+      "sound": "Soft steps, cloth movement and a small wooden scrape"
+    },
+    {
+      "id": "homeward",
+      "seconds": 6,
+      "setting": "Inside a fictional riverside lantern workshop, looking through a timber doorway toward a quiet river path. A low wooden bench and lattice window remain behind the camera. Muted jade, rust and honey tones frame a flat cartoon person. Bo occupies the lower center of the vertical composition and the path recedes above him.",
+      "cast": [
+        "bo"
+      ],
+      "start": {
+        "lantern": {
+          "holder": "bo",
+          "place": "both hands beneath the lantern base, held at waist height"
+        }
+      },
+      "beats": [
+        {
+          "from": 0,
+          "to": 2,
+          "action": "Bo turns toward the doorway with both hands still supporting the lantern from below."
+        },
+        {
+          "from": 2,
+          "to": 5,
+          "action": "The camera follows a short steady walk toward the threshold. The lantern remains unlit and stable at waist height."
+        },
+        {
+          "from": 5,
+          "to": 6,
+          "action": "Pause at the doorway, keeping the carried lantern and the slate cap visible. End on this usable held frame."
+        }
+      ],
+      "end": {
+        "lantern": {
+          "holder": "bo",
+          "place": "both hands beneath the lantern base, held at waist height"
+        }
+      },
+      "transition": "continuous",
+      "offscreen": {},
+      "lines": [
+        {
+          "speaker": "reader",
+          "text": "灯还没点亮，回家的路已经近了。"
+        }
+      ],
+      "sound": "Footsteps on timber giving way to faint river air"
+    }
+  ]
+}

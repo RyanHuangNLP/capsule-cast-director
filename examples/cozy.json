@@ -1,0 +1,64 @@
+{
+  "schema": 1,
+  "title": "A scarf for later",
+  "context": "An original fictional visual vignette; no historical event is asserted.",
+  "look": "cozy",
+  "aspect": "16:9",
+  "duration": 10,
+  "drawing": "Flat color animation with soft closed silhouettes. People have oversized rounded heads, compact solid trunks, and broad rounded arm and leg shapes that carry visible mass. Small paddle-shaped hands and blunt feet finish the silhouette. Two upright dark pill marks are the only facial marks: no mouth, nose, brows, pupils or eye shine. Clothing covers the body normally, with no anatomy visible through fabric. Read emotion from posture, head angle and pauses. Use quiet edges and limited shading; avoid glossy toy surfaces and mechanical additions.",
+  "cast": {
+    "lead": "Sol is a compact adult cartoon figure with a white filled rounded head and white solid torso, two dark upright pill eyes, broad charcoal arms and legs, small charcoal paddle hands and rounded dark feet. There is no hair, clothing or accessory on this plain base. No mouth, nose or eyebrows. Keep the head and trunk white even in warm room light."
+  },
+  "props": {
+    "item": "One navy wool scarf folded into a small soft rectangle."
+  },
+  "voices": {},
+  "audio": {
+    "mode": "silent",
+    "music": ""
+  },
+  "exclude": "Hairline arms or legs, empty ring heads, extra facial marks, cloned people or objects, anatomy showing through clothing, unrequested lettering, watermarks and brand marks.",
+  "shots": [
+    {
+      "id": "lift",
+      "seconds": 10,
+      "setting": "One small warm kitchen with honey-colored timber, pale green cupboards and a window catching late-afternoon light. A folded scarf rests on a chair. Keep this room layout throughout.",
+      "cast": [
+        "lead"
+      ],
+      "start": {
+        "item": {
+          "holder": "set",
+          "place": "on the wooden chair seat"
+        }
+      },
+      "beats": [
+        {
+          "from": 0,
+          "to": 3,
+          "action": "A gentle medium view shows Sol looking from the window toward the scarf and taking a quiet step to the chair."
+        },
+        {
+          "from": 3,
+          "to": 7,
+          "action": "The right hand cups the folded scarf and lifts it from the seat; its navy color and single folded shape remain."
+        },
+        {
+          "from": 7,
+          "to": 10,
+          "action": "Sol holds the scarf at chest height, lowers the shoulders and pauses in the same kitchen."
+        }
+      ],
+      "end": {
+        "item": {
+          "holder": "lead",
+          "place": "right hand at chest height"
+        }
+      },
+      "transition": "opening",
+      "offscreen": {},
+      "lines": [],
+      "sound": ""
+    }
+  ]
+}

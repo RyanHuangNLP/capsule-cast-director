@@ -1,0 +1,4 @@
+interface:
+  display_name: "Capsule Cast Director"
+  short_description: "Create rounded cartoon casts and coherent shot prompts"
+  default_prompt: "Use $directing-capsule-casts to design a cast and write complete shot prompts in the visual style I choose."
